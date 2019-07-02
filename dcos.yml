@@ -1,6 +1,6 @@
 ---
 - name: Wait for instances to become reachable
-  hosts: all
+  hosts: dcos_all
   gather_facts: no
   tasks:
     - name: Wait for instances to become reachable
@@ -10,13 +10,13 @@
         timeout: 120
 
 - name: Collect DC/OS versions
-  hosts: all
+  hosts: dcos_all
   tasks:
     - name: Collect DC/OS versions
       setup:
 
 - name: DC/OS Requirements
-  hosts: all
+  hosts: dcos_all
   become: true
   tasks:
     - include_role:
@@ -25,14 +25,14 @@
         name: DCOS.gpu
 
 - name: "Setup and configure BOOTSTRAP nodes"
-  hosts: bootstraps
+  hosts: dcos_bootstraps
   become: true
   tasks:
     - include_role:
         name: DCOS.bootstrap
 
 - name: "Setup and configure MASTER nodes"
-  hosts: masters
+  hosts: dcos_masters
   serial: 1
   become: true
   tasks:
@@ -40,7 +40,7 @@
         name: DCOS.master
 
 - name: "Setup and configure AGENT nodes"
-  hosts: agents
+  hosts: dcos_agents
   become: true
   tasks:
     - include_role:

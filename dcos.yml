@@ -45,10 +45,3 @@
   tasks:
     - include_role:
         name: DCOS.agent
-
-- name: "Install dcos CLI"
-  hosts: dcos_all!dcos_bootstraps
-  become: true
-  tasks:
-    - include_role:
-        name: dcos

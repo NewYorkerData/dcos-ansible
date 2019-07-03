@@ -46,6 +46,15 @@
     - include_role:
         name: DCOS.agent
 
+- name: "Set DC/OS superuser password"
+  hosts: dcos_all
+  run_once: true
+  become: true
+  tasks:
+    - shell: >
+        "sudo /opt/mesosphere/bin/dcos-shell 
+        /opt/mesosphere/active/bouncer/bouncer/bin/reset-superuser root"
+
 - name: "Install dcos CLI"
   hosts: dcos_all!dcos_bootstraps
   become: true

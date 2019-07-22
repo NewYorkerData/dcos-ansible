@@ -101,9 +101,10 @@
         msg: >
           ABORT! Could not install '{{ dcos_prereq_packages }}'.
           Please make sure the systems repositories are enabled and reachable!
-  - name: "Install required pip packages"
-    pip:
-      name: pexpect
+  
+- name: "Install required pip packages"
+  pip:
+    name: pexpect
 
 - name: "SELinux '{{ dcos['selinux_mode'] | default('permissive') }}'"
   selinux:

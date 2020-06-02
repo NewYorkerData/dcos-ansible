@@ -17,6 +17,18 @@
   notify: reload facts
 - meta: flush_handlers
 
+# Make sure the GPU scheduling behavior is set
+- name: Create dcos marathon directory
+  file:
+    path: /var/lib/dcos/marathon/
+    state: directory
+
+- name: Create marathon env file
+  copy:
+    dest: /var/lib/dcos/marathon/environment
+    content: |
+      MARATHON_GPU_SCHEDULING_BEHAVIOR="{{ dcos.config.gpu_scheduling_behavior }}"
+
 # Installation for fresh nodes
 - import_tasks: dcos_install.yml
   when: (ansible_local is not defined) or (ansible_local.dcos_installation is not defined) or (ansible_local.dcos_installation['dcos-image-commit'] is not defined)
